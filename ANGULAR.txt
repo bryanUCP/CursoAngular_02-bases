@@ -1,0 +1,69 @@
+ANGULAR
+
+* Escrito en TypeScript
+* JavaScript con superpoderes o Esteroides
+* Tipado estatico en nuestro codigo
+* Rxjs (Reactive Extensions for Javascript)
+
+
+Artitectura Angular
+
+* Modulos
+* Componentes
+* Directivas
+* Pipes
+* Servicios
+* Router
+
+
+MODULO
+
+* Fragmento de codigo autonomo que nos permite agrupar codigo perteneciente a una funcionalidad en nuestra aplicacion
+* Independientes y agrupán funcionalidad
+* Modulos compartidos (Shared modules)
+* Optimizar el rendimiento de la aplicacion mediante una caracteristicas llamada "lazy loading"
+
+
+COMPONENTE
+
+* Pequeña unidad de codigo que sirve a un solo proposito
+* Reutilizables y componibles
+* Pueden renderizar a otros componentes y es necesario que entendamos ciertos patrones para que nuestros componentes tengan una mejor comunicacion entre ellos
+* Contienen una vista HTML, estilos propios y codigo mediante una clase.
+
+
+DIRECTIVA
+
+* Agregan funcionalidad al HTML o los componentes
+* Modificar o general elementos y componentes.
+* Directivas integradas. 
+* API para crear directivas personalizadas
+* Manipular el DOM (Document Object Model)
+
+
+PIPES
+
+* Son funciones puras que nos permiten transformar los datos para ser renderizados dentro de una plantilla
+* Son utilizados dentro de los componentes
+* Son utilizadas en conjunto con la interpolacion
+* Logica reutilizable como formateo de fechas, moneda, etcetera.
+* Pipes integrados
+* API para crear nuestros propios pipes.
+
+SOLO SE UTILIZA PARA LA VISTA
+
+SERVICIOS
+
+* Logica no relacionada a algun componente
+* Utilizados para data-fetching, storage (HTTP, web socket, Local storage)
+* Pueden ser consumidos por otros servicios y componentes mediante la inyeccion de dependencias
+* Clases Singleton. Siempre va existir una sola instancia del servicio en toda la applicacion.
+
+
+ROUTING (Enrutamiento)
+
+* Abstrae el acceso de lectura y escritura al estado de la URL
+* Directivas y un API especifico para la navegacion
+* Precargar datos y proteger el acceso a diversas caracteristicas de la aplicacion.
+
+

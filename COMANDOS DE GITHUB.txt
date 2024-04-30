@@ -1,0 +1,16 @@
+COMANDO DE GITHUB
+
+Cuando se crea un nuevo repositorio
+
+* git init
+* git add README.md
+* git commit -m "first commit"
+* git branch -M main
+* git remote add origin https://github.com/bryanUCP/Curso-Angular-Udemy-Basico.git
+* git push -u origin main
+
+o Cuando el repositorio ya existe
+
+* git remote add origin https://github.com/bryanUCP/Curso-Angular-Udemy-Basico.git
+* git branch -M main
+* git push -u origin main

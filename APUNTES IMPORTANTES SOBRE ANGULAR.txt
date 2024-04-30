@@ -1,0 +1,199 @@
+APUNTES IMPORTANTES SOBRE ANGULAR
+
+Una pagina no es mas que un componente comun y corriente, es decir, un componente en el cual ustedes van a usalr para principalmente el router de su aplicacion. pero las paginas no son mas que componentes que usualmente tienen mas componentes dentro.
+
+@Input()
+Recibir del padre
+
+Decoradores de clase para componentes
+@Input: Se define una propiedad que puede ser enviada desde el padre hacia el componente hijo.
+
+¿tengo que importar mis interfaces en el modulo?
+No, porque las interfaces no tienen contraparte de Javascript propiamente, solo son en el lado TypeScript o mejor dicho, cuando uno esta desarrollando una aplicacion.
+
+Cuando uno hace el build de la produccion, todas las interfaces terminan siendo cero linea de codigo. En Javascript no se importan las interfaces.
+
+En relacion a sobre la comunicacion entre componentes y que el padre le mandara la informacion al hijo.
+
+Lo que se necesita es que desde Main-page le mandemos este listado de personajes a list.components y para hacer eso o para permitir esa comunicacion, la property que uno quiere recibir desde el mundo exterior va tener el decorador @Input(), esto de importa de Angular core.
+
+Solo con poner ese decorador en una property hace varias cosas:
+
+* Le estoy diciendo que mi main-page.component va recibir una property o mejor dicho, puede recibir una property llamada charaterList.
+
+
+----------------------------------------------------------
+
+Expandiendo *ngfor
+
+
+let isFirst = first;  ---> Para saber cual es el primero numero de una lista 
+    let isLast = last; ---> Para saber cual es el ultimo numero de una lista
+    let isEven = even; ---> Para saber si un numero es par o no 
+      let isOdd = odd; ---> Para saber si un numero es impar o no.
+
+
+----------------------------------------------------------
+
+ngClass - Clases basado en condiciones
+
+ngClass: Enlaza clases de css basadoo en un objeto o expresion.
+
+ngClass nos sirve a nosotros para añadir clases de manera condicional muy util.
+
+[ngClass]="{
+      'list-group-item-primary': isFirst,
+      'list-group-item-success': isLast
+    }">
+
+
+------------------------------------------------------------
+
+formsModule y ngModel
+
+Cuando tenemos un evento click, teniamos los parentesis para indicar que es un evento y nosotros teniamos llaves cuadradas.
+y cuando tenemos llaves cuadras [] es para asociar un atributo.
+
+[()] --> lo que estamos indicando aqui es que estamos asociando un evento y un atributo al mismo tiempo.
+
+
+[(ngModel)]="Character.name"
+
+para poder utilizar esta propieda de ngModel, debemos importar en module el formsModule de @angular/forms.
+
+Siempre que veamos la palabra model va en los imports.
+
+//En el archivo dbz.module.ts
+import { FormsModule } from '@angular/forms';
+
+imports: [
+    CommonModule,
+    FormsModule
+  ]
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+<form class="row">
+    <input type="text" [(ngModel)]="Character.name" name="name" class="form-control mb-2" placeholder="Nombre">
+    <input type="number" [(ngModel)]="Character.power" name="power" class="form-control mb-2" placeholder="Poder">
+    <button type="submit" (click)="emitCharacter()"  class="btn btn-primary">Agregar</button>
+
+    <pre>{{Character | json}}</pre>
+
+  </form>
+
+
+----------------------------------------------------------
+
+@Output() Emitir eventos al padre
+
+El evento ngSubmit es un evento especial de Angular, el cual ayuda con propagacion del formulario para evitar que se recargue navegador web, entre otras cosas.
+
+
+ngSubmit es una directiva en Angular que se utiliza para manejar la presentación de formularios en una aplicación Angular. Cuando se aplica ngSubmit a un elemento del formulario (como un botón de tipo "submit"), Angular escucha el evento de envío del formulario y ejecuta una función especificada cuando se activa dicho evento.
+
+La principal ventaja de utilizar ngSubmit es que permite manejar la presentación del formulario de una manera más controlada y eficiente en comparación con los métodos tradicionales de JavaScript para manejar eventos de envío de formularios.
+
+@Output: Define una salida del componente que el componente padre puede suscribirse para escuchar.
+
+//form.components.ts
+@Output()
+  public onNewCharacter: EventEmitter<Character> = new EventEmitter();
+
+//main-page.components.html
+<dbz-form (onNewCharacter)="onNewCharacter($event)"></dbz-form>
+
+//main-page.components.ts
+onNewCharacter( character: Character):void {
+    console.log(character);
+  }
+
+----------------------------------------------------------
+
+Formas de depurar la aplicacion
+
+Los break points no son mas que cuando pase el codigo en cierto lugar quiero hacer o detenerme ahí para ver como va el comportamiento de mi navegador web.
+
+------------------------------------------------------------
+
+Servicios
+
+El objetivo de un servicio es que ahi tenga la logica de negocio para manejar estos heroes o estos personajes.
+
+
+import { Injectable } from '@angular/core';
+
+@Injectable({providedIn: 'root'})
+export class ServiceNameService {
+  constructor() { }
+  
+}
+
+injectable es nuestro decorador, el cual recuerde un servicio como casi todo lo que hemos trabajado en Angular. son simples clases.
+Una clase comun y corriente que puede tener sus propiedades publicas. sus propiedas privadas, sus propiedades estaticas, sus metodos, sus getters, setters, etc.
+
+
+Para poder hacer la inyeccion de dependecias en mi main-page.components.ts en el constructor hacemos lo siguiente:
+
+constructor ( public dbzService : DbzService){
+
+  }
+
+-----------------------------------------------------------
+
+Paquetes externos UUID
+
+UUID es un paquete de NPM y lo que hace es genera identificadores unicos con cierto formato.
+
+// dbz.services.ts
+import { v4 as uuid } from 'uuid'
+
+
+---------------------------------------------------------
+
+Servicio Privado
+
+Una de las razones principales por las cual hay que hacer los services privados es que por si acaso, uno importa un main page component por ejemplo a otro lugar o lo estan usando de manera directa, tecnicamente tambien expondriamos lo que esto sea publico.
+
+
+****************** SECCION 6 ******************************
+		Despligues a produccion
+
+Generar build produccion
+
+El build de produccion es la optimizacion, minimizacion y ejecutando el tri checking.
+
+el Three checking es el proceso de botar o de sacudir un arbol y botar todas las hojas muertas.
+Esto quiere decir que nuestro proyecto va quitar todos aquellos archivos que no necesita para la parte de build de produccion.
+
+
+El build de produccion significa tener nuestra aplicacion optimizada para la web.
+
+
+Comando para aplicar el build de produccion en mi proyecto
+
+> ng build
+
+
+------------------------------------------------------------
+
+HttpServer Local y Netlife
+
+el servidor http estatico de liena de comandos simple y sin configuracion. Es lo suficiente potent para uso en produccion, pero es lo suficiente simple y pirateable como para usarlo en pruebas, desarrollo local y aprendizaje.
+
+Instalacion: npm install --global http-server
+
+para correrlo: http-server -o
+
+y recordemos que solo usemo el http server solo para fines de pruebas.
+
+
+* Netlify es un servicio que nos permite desplegar rapidamente nuestra aplicaciones, probar cosas y es bastante bueno.
+
+---------------------------------------------------------
+
+Github Pages
+
+
+
+

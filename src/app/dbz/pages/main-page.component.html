@@ -1,0 +1,19 @@
+<h1>{{ title }}</h1>
+<hr>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+
+      <!-- Viene de dbz/components/list/list.component.html -->
+      <dbz-list [characterList]="Characters"
+                (onDelete)="onDeleteCharacter($event)"></dbz-list>
+
+    </div>
+    <div class="col">
+
+      <!-- Viene de dbz/components/form/form.component.html -->
+      <dbz-form (onNewCharacter)="onNewCharacter($event)"></dbz-form>
+
+  </div>
+</div>
